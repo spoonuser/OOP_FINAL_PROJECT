@@ -41,10 +41,23 @@ public class Main{
 	JRadioButton button_37;
 	JRadioButton button_710;
 	JComboBox teacher_list;
+	static Cours_rgst_pan rgstPan = new Cours_rgst_pan();
 	String[] teachs;
 	static String Education;
 	public static void main(String[] args) {
+		ImageIcon bg_pan = new ImageIcon("bg_panel.jpg");
+		JPanel bg_panel = new JPanel();
+		bg_panel.setSize(300,300);
 		Education = "Education";
+		//registration frame
+		JFrame registration_frame = new JFrame();
+		registration_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		JScrollPane scrollPane = new JScrollPane(rgstPan);
+		rgstPan.setPreferredSize(new Dimension(800,600));
+		registration_frame.setBounds(400,200,600,400);
+		registration_frame.add(scrollPane);
+		registration_frame.setVisible(false);
+		
 		//change language buttons
 		JButton ru_button = new JButton("RU");
 		ru_button.setFocusable(false);
@@ -154,6 +167,7 @@ public class Main{
 		JMenuBar menuBar = new JMenuBar();
 		JMenu transcript = new JMenu("Transcript");
 		JMenuItem view_transcript = new JMenuItem("View Transcript");
+		JMenuItem register_for_courses = new JMenuItem("Course Registration");
 	    JMenu fileMenu = new JMenu(Education);
 	    JMenu Teachers = new JMenu("Teachers");
 	    
@@ -186,7 +200,7 @@ public class Main{
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setBounds(200,200,1200,800);
+        frame.setBounds(20,10,1200,700);
 
         ScheduleItem.setMnemonic(KeyEvent.VK_1);
         ScheduleItem.setIcon(ScheduleIcon);
@@ -194,6 +208,7 @@ public class Main{
         view_transcript.setIcon(TransriptIcon);
 
         fileMenu.add(ScheduleItem);
+        fileMenu.add(register_for_courses);
         Teachers.add(RateTeachers);
         transcript.add(view_transcript);
 
@@ -252,7 +267,7 @@ public class Main{
         JFrame login_frame = new JFrame("Login Window");
         login_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         login_frame.setLayout(null);
-        login_frame.setBounds(500,500,500, 300);
+        login_frame.setBounds(400,200,500, 300);
 
 
         loginLabel.setBounds(50, 50, 100, 30);
@@ -314,10 +329,13 @@ public class Main{
         	Education = "Education";
             fileMenu.setText(Education);
             transcript.setText("Transcript");
-            Teachers.setText("Teachers");
+            Teachers.setText("Employees");
             RateTeachers.setText("Rate Teachers");
             ScheduleItem.setText("Courses");
             view_transcript.setText("View Courses");
+        });
+        register_for_courses.addActionListener(e -> {
+        	registration_frame.setVisible(true);
         });
 	}
 }
