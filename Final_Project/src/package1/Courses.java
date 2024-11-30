@@ -2,6 +2,9 @@ package package1;
 
 public class Courses {
 	public String students_id;
+	String course_name;
+	int credit;
+	String department;
 	Object obj = new Object();
 	Student student1 = new Student("Saitama", 29, "1punch", "man","bachelor","23B01");
 	String[][] data23B01 ={
@@ -959,8 +962,10 @@ public class Courses {
 			{"1","Katrin","19"}
 	};
 	String[] columnNames = {"Code", "Name(RU)","Name(KZ)", "Name(ENG)","Department","Credit","Formula","Year","Period"};
-	public Courses() {
-		
+	public Courses(String course_name, Integer credit, String department) {
+		this.course_name = course_name;
+		this.credit = credit;
+		this.department = department;
 	}
 	public String[][] getData(){
 		students_id = student1.get_id();
@@ -973,5 +978,14 @@ public class Courses {
 	}
 	public String[] getColumns(){
 		return columnNames;
+	}
+	public String get_course_name() {
+		return course_name;
+	}
+	public String get_department() {
+		return course_name;
+	}
+	public Integer get_credit() {
+		return credit;
 	}
 }

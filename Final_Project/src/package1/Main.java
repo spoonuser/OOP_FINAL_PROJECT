@@ -29,9 +29,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.event.TableModelEvent;
 import javax.swing.plaf.basic.BasicMenuItemUI;
+import javax.swing.table.DefaultTableModel;
 
 import xddddd.MyFrame;
 
@@ -41,22 +44,20 @@ public class Main{
 	JRadioButton button_37;
 	JRadioButton button_710;
 	JComboBox teacher_list;
+	DefaultTableModel model;
+    static JTable tablerg;
 	static Cours_rgst_pan rgstPan = new Cours_rgst_pan();
+	static rgst_frame rgs_frame;
 	String[] teachs;
 	static String Education;
 	public static void main(String[] args) {
+		////////////////////Courses
+        Courses course = new Courses("Physical Education", 10, "Site");
+	    //////////////////Courses
 		ImageIcon bg_pan = new ImageIcon("bg_panel.jpg");
 		JPanel bg_panel = new JPanel();
 		bg_panel.setSize(300,300);
 		Education = "Education";
-		//registration frame
-		JFrame registration_frame = new JFrame();
-		registration_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		JScrollPane scrollPane = new JScrollPane(rgstPan);
-		rgstPan.setPreferredSize(new Dimension(800,600));
-		registration_frame.setBounds(400,200,600,400);
-		registration_frame.add(scrollPane);
-		registration_frame.setVisible(false);
 		
 		//change language buttons
 		JButton ru_button = new JButton("RU");
@@ -67,7 +68,6 @@ public class Main{
 		eng_button.setFocusable(false);
 		eng_button.setBounds(1100,20,80,40);
 		//change language buttons
-		Courses course = new Courses();
 		JFrame courses_table_frame = new JFrame();
 		courses_table_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		courses_table_frame.setBounds(300,300,800,500);
@@ -176,6 +176,7 @@ public class Main{
 	    ImageIcon ScheduleIcon = new ImageIcon("file (1).png");
 	    ImageIcon TeacherIcon = new ImageIcon("file (4) (1).png");
 	    ImageIcon TransriptIcon = new ImageIcon("Remove background project.png");
+	    ImageIcon RegistrationIcon = new ImageIcon("registration_icon.png");
 
 	    ImageIcon backgroundIcon = new ImageIcon("zaeb.jpg");
 	    JPanel hiddenPanel = new JPanel();
@@ -206,6 +207,7 @@ public class Main{
         ScheduleItem.setIcon(ScheduleIcon);
         RateTeachers.setIcon(TeacherIcon);
         view_transcript.setIcon(TransriptIcon);
+        register_for_courses.setIcon(RegistrationIcon);
 
         fileMenu.add(ScheduleItem);
         fileMenu.add(register_for_courses);
@@ -335,7 +337,7 @@ public class Main{
             view_transcript.setText("View Courses");
         });
         register_for_courses.addActionListener(e -> {
-        	registration_frame.setVisible(true);
+        	rgs_frame = new rgst_frame();
         });
 	}
 }
