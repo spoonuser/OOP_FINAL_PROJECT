@@ -9,8 +9,10 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -310,20 +312,33 @@ public class Main{
         login_frame.add(loginButton);
         login_frame.add(registrateLoginButton);
         login_frame.setVisible(true);
-        
+
         loginButton.addActionListener(e -> {
-        	boolean try_again = true;
-        	for(int i = 0;i<arr.length;i++) {
-        		if(loginField.getText().equals(((User) arr[i]).get_login())&&passwordField.getText().equals(((User) arr[i]).get_password())) {
-        			login_frame.setVisible(false);
-        			try_again = false;
-        			frame.setVisible(true);
-        			list.add(arr[i]);
-        		}
-        	}
-        	if(try_again) {
-        		JOptionPane.showMessageDialog(login_frame, "Invalid login or password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        	}
+            boolean try_again = true;
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader("login_password.txt"));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] credentials = line.split(":");
+                    String fileLogin = credentials[0];
+                    String filePassword = credentials[1];
+                    if (loginField.getText().equals(fileLogin) && passwordField.getText().equals(filePassword)) {
+                        login_frame.setVisible(false);
+                        try_again = false;
+                        frame.setVisible(true);
+                        break;
+                    }
+                }
+                reader.close();
+                if (try_again) {
+                    JOptionPane.showMessageDialog(login_frame, "Invalid login or password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(login_frame, "Error reading file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
         ScheduleItem.addActionListener(e -> {
         	JTable table = new JTable(course.getData(),course.getColumns());
