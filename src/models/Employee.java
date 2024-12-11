@@ -1,11 +1,12 @@
 package models;
 
-public class Employee extends User{
+public abstract class Employee extends User {
+    protected double salary;
 
-	public Employee(String username, String password) {
-		super(username, password);
-		
-	}
+    public Employee(String login, String password, double salary) {
+        super(login, password);
+        this.salary = salary;
+    }
 
-
+    public abstract void displayEmployeeInfo();
 }
