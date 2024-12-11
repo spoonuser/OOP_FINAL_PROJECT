@@ -14,7 +14,6 @@ public class JTableWithCheckbox {
         Courses PhysicsI = new Courses("Physics I", 9, "Site");
         Courses PhysicsII = new Courses("Physics II", 9, "Site");
         Courses Phe = new Courses("Physical Education", 10, "Site");
-
         SwingUtilities.invokeLater(() -> {
             Object[][] data = {
                 {Calculus.get_course_name(), Calculus.get_credit(), Calculus.get_department(), false},
